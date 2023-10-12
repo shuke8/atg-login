@@ -11,9 +11,15 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
+const allowedCredentials = [
+  { email: "o.komilov@atg.uz", password: "1234567" },
+  { email: "f.jalilov@atg.uz", password: "1234567" },
+];
+
 const signInForm = document.querySelector(".sign-in-form");
 const modal = document.querySelector(".modal");
 const modalContent = document.querySelector(".modal-content");
+
 
 signInForm.addEventListener("submit", async function (e) {
   e.preventDefault(); // Prevent the default form submission
@@ -24,25 +30,20 @@ signInForm.addEventListener("submit", async function (e) {
   const password = passwordInput.value;
 
   try {
-    await firebase.auth().signInWithEmailAndPassword(email, password);
+    // Check if the email and password combination exists in allowedCredentials
+    const validCredential = allowedCredentials.find(
+      (cred) => cred.email === email && cred.password === password
+    );
 
-    // Get the currently authenticated user
-    const user = firebase.auth().currentUser;
-
-    if (user) {
-      if (user.email === "o.komilov@atg.uz" && password === "1234567") {
-        // Redirect to the specified URL
-        window.location.href = "https://final-atg.vercel.app/";
-      } else {
-        // Redirect to another URL or handle it accordingly
-        window.location.href = "https://fin-atg-main.vercel.app/";
-      }
+    if (validCredential) {
+      // Redirect to the specified URL for valid credentials
+      window.location.href = "https://final-atg.vercel.app/";
     } else {
-      modalContent.innerHTML = "Invalid email or password. Please try again.";
-      modal.style.display = "flex";
+      // Redirect to another URL or handle it accordingly for invalid credentials
+      window.location.href = "https://fin-atg-main.vercel.app/";
     }
   } catch (error) {
-    modalContent.innerHTML = `Authentication error. Please try again.`;
+    modalContent.innerHTML = "Authentication error. Please try again.";
     modal.style.display = "flex";
   }
 });
