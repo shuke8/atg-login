@@ -14,6 +14,7 @@ firebase.initializeApp(firebaseConfig);
 const allowedCredentials = [
   { email: "o.komilov@atg.uz", password: "1234567" },
   { email: "f.jalilov@atg.uz", password: "1234567" },
+  { email: "m.rakhmanov@atg.uz", password: "1234567" },
 ];
 
 const signInForm = document.querySelector(".sign-in-form");
