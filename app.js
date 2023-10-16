@@ -30,21 +30,17 @@ signInForm.addEventListener("submit", async function (e) {
   const email = emailInput.value;
   const password = passwordInput.value;
 
-  try {
-    // Check if the email and password combination exists in allowedCredentials
-    const validCredential = allowedCredentials.find(
-      (cred) => cred.email === email && cred.password === password
-    );
+
+  const validCredential = allowedCredentials.find(
+    (cred) => cred.email === email && cred.password === password
+  );
 
     if (validCredential) {
-      // Redirect to the specified URL for valid credentials
-      window.location.href = "https://final-atg.vercel.app/";
-    } else {
-      // Redirect to another URL or handle it accordingly for invalid credentials
-      window.location.href = "https://fin-atg-main.vercel.app/";
-    }
-  } catch (error) {
-    modalContent.innerHTML = "Authentication error. Please try again.";
+    // Redirect to the specified URL for valid credentials
+    window.location.href = "https://atg-manager.vercel.app/";
+  } else {
+    // Show the error message in the modal without redirecting
+    modalContent.innerHTML = "Invalid email or password. Please try again.";
     modal.style.display = "flex";
   }
 });
