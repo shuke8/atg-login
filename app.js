@@ -11,16 +11,9 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-const allowedCredentials = [
-  { email: "o.komilov@atg.uz", password: "1234567" },
-  { email: "f.jalilov@atg.uz", password: "1234567" },
-  { email: "m.rakhmanov@atg.uz", password: "1234567" },
-];
-
 const signInForm = document.querySelector(".sign-in-form");
 const modal = document.querySelector(".modal");
 const modalContent = document.querySelector(".modal-content");
-
 
 signInForm.addEventListener("submit", async function (e) {
   e.preventDefault(); // Prevent the default form submission
@@ -30,17 +23,31 @@ signInForm.addEventListener("submit", async function (e) {
   const email = emailInput.value;
   const password = passwordInput.value;
 
+  // Use Firebase Authentication to check credentials
+  try {
+    await firebase.auth().signInWithEmailAndPassword(email, password);
+    // Firebase authentication succeeded
+    // Check allowedCredentials
+    const allowedCredentials = [
+      { email: "o.komilov@atg.uz", password: "1234567" },
+      { email: "f.jalilov@atg.uz", password: "1234567" },
+      { email: "m.rakhmanov@atg.uz", password: "1234567" },
+    ];
 
-  const validCredential = allowedCredentials.find(
-    (cred) => cred.email === email && cred.password === password
-  );
+    const validCredential = allowedCredentials.find(
+      (cred) => cred.email === email && cred.password === password
+    );
 
     if (validCredential) {
-    // Redirect to the specified URL for valid credentials
-    window.location.href = "https://atg-manager.vercel.app/";
-  } else {
-    // Show the error message in the modal without redirecting
-    modalContent.innerHTML = "Invalid email or password. Please try again.";
+      // Redirect to the specified URL for valid credentials
+      window.location.href = "https://atg-manager.vercel.app/";
+    } else {
+      // Redirect to https://atg-engineer.vercel.app/ if Firebase is correct but not in allowedCredentials
+      window.location.href = "https://atg-engineer.vercel.app/";
+    }
+  } catch (error) {
+    // Handle Firebase authentication errors
+    modalContent.innerHTML = "Authentication error. Please try again.";
     modal.style.display = "flex";
   }
 });
