@@ -41,10 +41,10 @@ signInForm.addEventListener("submit", async function (e) {
     );
 
     if (validCredential) {
-      // Redirect to the specified URL for valid credentials
+      // managers
       window.location.href = "https://atg-manager.vercel.app/";
     } else {
-      // Redirect to https://atg-engineer.vercel.app/ if Firebase is correct but not in allowedCredentials
+      // engeneers
       window.location.href = "https://atg-engineer.vercel.app/";
     }
   } catch (error) {
