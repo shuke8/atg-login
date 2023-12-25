@@ -42,10 +42,10 @@ signInForm.addEventListener("submit", async function (e) {
 
     if (validCredential) {
       // managers
-      window.location.href = "https://portal-atg.vercel.app/";
+      window.location.href = "https://atg-managers.vercel.app/";
     } else {
       // engeneers
-      window.location.href = "https://portal-atg.vercel.app/";
+      window.location.href = "https://atg-managers.vercel.app/";
     }
   } catch (error) {
     // Handle Firebase authentication errors
