@@ -34,6 +34,7 @@ signInForm.addEventListener("submit", async function (e) {
       { email: "m.rakhmanov@atg.uz", password: "1234567" },
       { email: "a.juraev@atg.uz", password: "1234567" },
       { email: "o.matchanov@atg.uz", password: "1234567" },
+      { email: "r.alaberdin@atg.uz", password: "1234567" },
     ];
 
     const validCredential = allowedCredentials.find(
